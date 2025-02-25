@@ -1,0 +1,8 @@
+<screen  require-authentication="anonymous-all" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-3.xsd">
+
+<widgets>
+    <label text="Hello From the Product Screen " type="h1" />
+
+</widgets>
+
+</screen>

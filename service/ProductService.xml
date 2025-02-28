@@ -1,0 +1,12 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+    <service verb="delete"  noun="Product" type="script" location="component://productinformationmgr/script/ProductService.groovy">
+        <in-parameters>
+            <parameter name="productId" type="String" required="true" />
+
+        </in-parameters>
+        <out-parameters>
+            <parameter name="message" type="String" />
+        </out-parameters>
+    </service>
+
+</services>

@@ -1,8 +1,669 @@
 <screen  require-authentication="anonymous-all" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-3.xsd">
 
-<widgets>
-    <label text="Hello From the Product Screen " type="h1" />
+    <transition name="createProductTransition">
+        <service-call name="create#product.Product" />
 
-</widgets>
+        <default-response url="." />
+    </transition>
+    <transition name="updateProductDataTransition">
+        <service-call name="update#product.Product" />
+        <default-response url="." />
+    </transition>
+    <transition name="createProductContentTransition">
+        <service-call name="create#productContent.ProductContentEntity" />
+        <default-response url="." />
+    </transition>
+    <transition name="updateProductContentTransition">
+        <service-call name="update#productContent.ProductContentEntity" />
+        <default-response url="." />
+    </transition>
+    <transition name="createProductPriceDataTransition">
+        <service-call name="create#productPrice.ProductPrice" />
+        <default-response url="." />
+    </transition>
+    <transition name="updateProductPriceDataTransition">
+        <service-call name="update#productPrice.ProductPrice" />
+        <default-response url="." />
+    </transition>
+    <transition name="createProductDimensionDataTransition">
+        <service-call name="create#productDimension.ProductDimension" />
+        <default-response url="." />
+    </transition>
+    <transition name="updateProductDimensionDataTransition">
+        <service-call name="update#productDimension.ProductDimension" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="createProductAssocDataTransition">
+        <service-call name="create#productAssoc.ProductAssoc" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="updateProductAssocDataTransition">
+        <service-call name="update#productAssoc.ProductAssoc" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="createProductFeatureDataTransition">
+        <service-call name="create#productFeature.ProductFeature" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="updateProductFeatureDataTransition">
+        <service-call name="update#productFeature.ProductFeature" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="createProductFeatureApplDataTransition">
+        <service-call name="create#productFeatureAppl.ProductFeatureAppl" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="updateProductFeatureApplDataTransition">
+        <service-call name="update#productFeatureAppl.ProductFeatureAppl" />
+        <default-response url="." />
+    </transition>
+    <transition name="createProductCategoryDataTransition">
+        <service-call name="create#productCategory.ProductCategory" />
+        <default-response url="." />
+    </transition>
+    <transition name="updateProductCategoryDataTransition">
+        <service-call name="update#productCategory.ProductCategory" />
+        <default-response url="." />
+    </transition>
+    <transition name="createProductCategoryMemberDataTransition">
+        <service-call name="create#productCategoryMember.ProductCategoryMember" />
+        <default-response url="." />
+    </transition>
+    <transition name="updateProductCategoryMemberDataTransition">
+        <service-call name="update#productCategoryMember.ProductCategoryMember" />
+        <default-response url="." />
+    </transition>
+    <transition name="deleteProductDataTransition">
+        <service-call name="ProductService.delete#Product"  />
+
+        <default-response url="." />
+    </transition>
+
+    <transition name="deleteProductContentDataTransition">
+        <service-call name="delete#productContent.ProductContentEntity" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="deleteProductPriceDataTransition">
+      <service-call name="delete#productPrice.ProductPrice" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="deleteProductDimensionDataTransition">
+       <service-call name="delete#productDimension.ProductDimension" />
+        <default-response url="." />
+    </transition>
+
+   <transition name="deleteProductAssocDataTransition">
+     <service-call name="delete#productAssoc.ProductAssoc" />
+       <default-response url="."/>
+   </transition>
+
+    <transition name="deleteProductFeatureDataTransition">
+       <service-call name="DeleteProductFeatureService.delete#ProductFeature" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="deleteProductFeatureApplDataTransition">
+      <service-call name="delete#productFeatureAppl.ProductFeatureAppl" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="deleteProductCategoryDataTransition">
+            <service-call name="DeleteProductCategoryService.delete#ProductCategory" />
+        <default-response url="." />
+    </transition>
+
+    <transition name="deleteProductCategoryMemberDataTransition">
+        <service-call name="delete#productCategoryMember.ProductCategoryMember" />
+        <default-response url="." />
+    </transition>
+
+    <actions>
+        <entity-find entity-name="Product" list="productList" />
+        <entity-find entity-name="ProductContentEntity" list="productContentList" />
+        <entity-find entity-name="ProductPrice" list="productPriceList" />
+        <entity-find entity-name="ProductDimension" list="productDimensionList" />
+        <entity-find entity-name="ProductAssoc" list="productAssocList" />
+        <entity-find entity-name="ProductFeature" list="productFeatureList" />
+        <entity-find entity-name="ProductFeatureAppl" list="productFeatureApplList" />
+        <entity-find entity-name="ProductCategory" list="productCategoryList" />
+        <entity-find entity-name="ProductCategoryMember" list="productCategoryMemberList" />
+    </actions>
+    <widgets>
+    <container-box>
+        <box-header>
+            <label text="Product Data" type="h4" />
+
+        </box-header>
+        <box-toolbar>
+            <container-dialog id="ProductDataCreateForm" button-text="Create Product" >
+                <form-single name="CreateProductData" transition="createProductTransition">
+                    <auto-fields-entity entity-name="Product"  field-type="edit"/>
+                    <field name="createButton">
+                        <default-field>
+                            <submit text="Create" />
+                        </default-field>
+                    </field>
+                </form-single>
+
+            </container-dialog>
+            <container-dialog id="UpdateProductData" button-text="Update Product Data">
+                <form-single name="UpdateProductForm" transition="updateProductDataTransition">
+                    <auto-fields-entity entity-name="Product" field-type="edit" />
+                    <field name="updateButton">
+                        <default-field>
+                            <submit text="update" />
+                        </default-field>
+                    </field>
+
+                </form-single>
+            </container-dialog>
+            <container-dialog id="DeleteProductEntity" button-text="Delete Product">
+                <form-single name="DeleteProductForm" transition="deleteProductDataTransition">
+                    <auto-fields-entity entity-name="Product" field-type="edit">
+                        <exclude field-name="productTypeEnumId"/>
+                        <exclude field-name="productName"/>
+                        <exclude field-name="isVirtual"/>
+                        <exclude field-name="isVarient"/>
+                    </auto-fields-entity>
+                    <field name="deleteButton">
+                        <default-field>
+                            <submit text="delete" />
+                        </default-field>
+                    </field>
+                </form-single>
+
+            </container-dialog>
+        </box-toolbar>
+        <box-body>
+
+            <form-list  select-columns="true" name="Product" list="productList" header-dialog="true" skip-form="true">
+                <auto-fields-entity entity-name="Product" field-type="find-display" />
+
+            </form-list>
+        </box-body>
+    </container-box>
+        <container-box>
+            <box-header>
+                <label text="ProductContent" type="h4"/>
+
+            </box-header>
+
+            <box-toolbar>
+                <container-dialog id="CreateProductContentData" button-text="Create ProductContent">
+                    <form-single name="CreateProductContentFormData" transition="createProductContentTransition" >
+                        <auto-fields-entity entity-name="ProductContentEntity" field-type="edit" />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductContentData" button-text="Update ProductContent Data">
+                    <form-single name="UpdateProductContentForm" transition="updateProductContentTransition">
+                        <auto-fields-entity entity-name="ProductContentEntity" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductContentEntity" button-text="Delete ProductContent">
+                    <form-single name="DeleteProductContentForm" transition="deleteProductContentDataTransition">
+                        <auto-fields-entity entity-name="ProductContentEntity" field-type="edit">
+                            <exclude field-name="productId"/>
+                            <exclude field-name="productContentTypeEnumId"/>
+                            <exclude field-name="contentLocation"/>
+
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+            </box-toolbar>
+            <box-body>
+                <form-list name="ProductContentForm" list="productContentList" header-dialog="true" skip-form="true">
+                    <auto-fields-entity entity-name="ProductContentEntity" field-type="find-display" />
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="Find" />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+
+        </container-box>
+        <container-box>
+            <box-header>
+                <label text="Product Price" type="h4"  />
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="CreateProductPriceData" button-text="Create Product Price">
+                    <form-single name="CreateProductPriceFormData" transition="createProductPriceDataTransition" >
+                        <auto-fields-entity entity-name="ProductPrice" field-type="edit"  />
+                        <field name="createButton">
+                            <default-field  title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductPriceData" button-text="Update Product Price" >
+                    <form-single name="UpdateProductPriceFormData" transition="updateProductPriceDataTransition">
+                        <auto-fields-entity entity-name="ProductPrice" field-type="edit" />
+                        <field name="createButton">
+                            <default-field  title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductPriceEntity" button-text="Delete ProductPrice">
+                    <form-single name="DeleteProductPriceForm" transition="deleteProductPriceDataTransition">
+                        <auto-fields-entity entity-name="ProductPrice" field-type="edit">
+                            <exclude field-name="productId"/>
+                            <exclude field-name="priceTypeEnumId"/>
+                            <exclude field-name="price"/>
+
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+
+            </box-toolbar>
+            <box-body>
+                <form-list name="ProductPriceForm" list="productPriceList" header-dialog="true" skip-form="true" select-columns="true">
+                    <auto-fields-entity entity-name="ProductPrice" field-type="find-display" />
+
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="Find" />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+        </container-box>
+        <container-box>
+            <box-header>
+                <label text="Product Dimension" type="h4" />
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="CreateProductDimensionData" button-text="Create ProductDimension">
+                    <form-single name="CreateProductDimensionData" transition="createProductDimensionDataTransition">
+                        <auto-fields-entity entity-name="ProductDimension" field-type="edit"  />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductDimensionData" button-text="Update ProductDimension Data">
+                    <form-single name="UpdateProductDimensionForm"  transition="updateProductDimensionDataTransition">
+                        <auto-fields-entity entity-name="ProductDimension" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+
+                </container-dialog>
+                <container-dialog id="DeleteProductDimensionEntity" button-text="Delete ProductDimension">
+                    <form-single name="DeleteProductDimensionForm" transition="deleteProductDimensionDataTransition">
+                        <auto-fields-entity entity-name="ProductDimension" field-type="edit">
+
+
+                            <exclude field-name="valueUomId"/>
+                            <exclude field-name="dimensionValue"/>
+
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+
+            </box-toolbar>
+            <box-body>
+                <form-list name="ProductDimensionForm" list="productDimensionList" header-dialog="true" select-columns="true" skip-form="true">
+                    <auto-fields-entity entity-name="ProductDimension" field-type="find-display" />
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="Find" />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+        </container-box>
+        <container-box>
+            <box-header>
+                <label text="Product Association Data" type="h4" />
+
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="ProductAssociationData" button-text="Create Product Association">
+                    <form-single name="CreateProductAssociationFormData" transition="createProductAssocDataTransition" >
+                        <auto-fields-entity entity-name="ProductAssoc" field-type="edit" />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductAssocData" button-text="Update ProductAssoc Data">
+                    <form-single name="UpdateProductAssocDataForm"  transition="updateProductAssocDataTransition">
+                        <auto-fields-entity entity-name="ProductAssoc" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductAssocEntity" button-text="Delete ProductAssoc">
+                    <form-single name="DeleteProductAssocForm" transition="deleteProductAssocDataTransition">
+                        <auto-fields-entity entity-name="ProductAssoc" field-type="edit">
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+            </box-toolbar>
+            <box-body>
+                <form-list name="ProductAssocForm" list="productAssocList" header-dialog="true" skip-form="true">
+                    <auto-fields-entity entity-name="ProductAssoc" field-type="find-display" />
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="Find"  />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+        </container-box>
+        <container-box>
+            <box-header>
+                <label text="Product Feature " type="h4" />
+
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="Product Feature Data" button-text="Create Product Feature">
+                    <form-single name="CreateProductFeatureFormData" transition="createProductFeatureDataTransition" >
+                        <auto-fields-entity entity-name="ProductFeature" field-type="edit" />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductFeatureData" button-text="Update ProductFeature Data">
+                    <form-single name="UpdateProductFeatureDataForm"  transition="updateProductFeatureDataTransition">
+                        <auto-fields-entity entity-name="ProductFeature" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductFeatureEntity" button-text="Delete ProductFeature">
+                    <form-single name="DeleteProductFeatureForm" transition="deleteProductFeatureDataTransition">
+                        <auto-fields-entity entity-name="ProductFeature" field-type="edit">
+                            <exclude field-name="productFeatureTypeEnumId"/>
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+            </box-toolbar>
+
+
+            <box-body>
+                <form-list name="ProductFeatureForm" list="productFeatureList" header-dialog="true" select-columns="true" >
+                    <auto-fields-entity entity-name="ProductFeature" field-type="find-display" />
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="Find" />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+        </container-box>
+        <container-box>
+            <box-header>
+                <label text="Product Feature Applies " type="h4" />
+
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="ProductFeatureData" button-text="Create ProductFeatureAppl">
+                    <form-single name="CreateProductFeatureApplFormData" transition="createProductFeatureApplDataTransition" >
+                        <auto-fields-entity entity-name="ProductFeatureAppl" field-type="edit" />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductFeatureApplData" button-text="Update ProductFeatureAppl Data">
+                    <form-single name="UpdateProductFeatureApplDataForm"  transition="updateProductFeatureApplDataTransition">
+                        <auto-fields-entity entity-name="ProductFeatureAppl" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductFeatureApplEntity" button-text="Delete ProductFeatureAppl">
+                    <form-single name="DeleteProductFeatureApplForm" transition="deleteProductFeatureApplDataTransition">
+                        <auto-fields-entity entity-name="ProductFeatureAppl" field-type="edit">
+                            <exclude field-name="applTypeEnumId"/>
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+            </box-toolbar>
+
+            <box-body>
+                <form-list name="ProductFeatureApplForm" list="productFeatureApplList" header-dialog="true" skip-form="true" >
+                    <auto-fields-entity entity-name="ProductFeatureAppl" field-type="find-display" />
+                    <field name="findButton">
+                        <header-field>
+                            <submit  text="Find" />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+        </container-box>
+
+
+        <container-box>
+            <box-header>
+                <label text="ProductCategory" type="h4" />
+
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="ProductCategoryData" button-text="Create ProductCategory ">
+                    <form-single name="CreateProductCategoryFormData" transition="createProductCategoryDataTransition" >
+                        <auto-fields-entity entity-name="ProductCategory" field-type="edit" />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductCategoryData" button-text="Update ProductCategory Data">
+                    <form-single name="UpdateProductCategoryDataForm"  transition="updateProductCategoryDataTransition">
+                        <auto-fields-entity entity-name="ProductCategory" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductCategoryEntity" button-text="Delete ProductCategory">
+                    <form-single name="DeleteProductCategoryForm" transition="deleteProductCategoryDataTransition">
+                        <auto-fields-entity entity-name="ProductCategory" field-type="edit">
+                            <exclude field-name="productCategoryTypeId"/>
+                            <exclude field-name="categoryName"/>
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+            </box-toolbar>
+
+
+            <box-body>
+                <form-list name="ProductCategory" list="productCategoryList"  header-dialog="true" skip-form="true">
+                    <auto-fields-entity entity-name="ProductCategory" field-type="find-display" />
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="Find" />
+                        </header-field>
+                    </field>
+                </form-list>
+            </box-body>
+        </container-box>
+        <container-box>
+            <box-header>
+                <label text="ProductCategoryMember data" type="h4"  />
+
+
+            </box-header>
+            <box-toolbar>
+                <container-dialog id="ProductCategoryMemberData" button-text="Create ProductCategoryMember">
+                    <form-single name="CreateProductCategoryMemberFormData" transition="createProductCategoryMemberDataTransition" >
+                        <auto-fields-entity entity-name="ProductCategoryMember" field-type="edit" />
+                        <field name="createButton">
+                            <default-field title="Create">
+                                <submit />
+                            </default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="UpdateProductCategoryMemberData" button-text="Update ProductCategoryMember Data">
+                    <form-single name="UpdateProductCategoryMemberDataForm"  transition="updateProductCategoryMemberDataTransition">
+                        <auto-fields-entity entity-name="ProductCategoryMember" field-type="edit" />
+                        <field name="updateButton">
+                            <default-field>
+                                <submit text="update" />
+                            </default-field>
+                        </field>
+
+
+                    </form-single>
+                </container-dialog>
+                <container-dialog id="DeleteProductCategoryMemberEntity" button-text="Delete ProductCategoryMember">
+                    <form-single name="DeleteProductCategoryMemberForm" transition="deleteProductCategoryMemberDataTransition">
+                        <auto-fields-entity entity-name="ProductCategoryMember" field-type="edit">
+
+                        </auto-fields-entity>
+                        <field name="deleteButton">
+                            <default-field>
+                                <submit text="delete" />
+                            </default-field>
+                        </field>
+                    </form-single>
+
+                </container-dialog>
+
+
+
+            </box-toolbar>
+
+            <box-body>
+                <form-list name="ProductCategoryMemberForm" list="productCategoryMemberList" header-dialog="true" skip-form="true">
+                    <auto-fields-entity entity-name="ProductCategoryMember" field-type="find-display" >
+
+                    </auto-fields-entity>
+
+
+
+                    <field name="findButton">
+                        <header-field>
+                            <submit text="submit" />
+                        </header-field>
+                    </field>
+
+
+                </form-list>
+            </box-body>
+        </container-box>
+
+
+
+
+
+    </widgets>
 
 </screen>
